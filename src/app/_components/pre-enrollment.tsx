@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { track } from "@vercel/analytics";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -65,6 +67,8 @@ function PreEnrollment() {
       email: values.email,
       phoneNumber: values.phoneNumber,
     });
+
+    track("pre-enrollment", { location: "save" });
   };
 
   return (
@@ -74,7 +78,10 @@ function PreEnrollment() {
           variant="default"
           size="lg"
           className="bg-primary hover:bg-primary text-white font-bold py-2 px-4 rounded shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
-        >
+          onClick={()=>{
+            track('pre-enrollment',{location:'investiment'})
+          }}
+      >
           Lista de espera
         </Button>
       </DialogTrigger>
